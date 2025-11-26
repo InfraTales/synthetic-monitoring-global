@@ -1,0 +1,42 @@
+```mermaid
+graph TD
+    subgraph Regions["Global Locations"]
+        US[US East/West]
+        EU[EU West]
+        APAC[AP South]
+    end
+
+    subgraph Canaries["Synthetic Canaries"]
+        Web[Web UI Canaries]
+        API[API Canaries]
+        Flow[User Flow Canaries]
+    end
+
+    subgraph Targets["Monitored Endpoints"]
+        App[Application]
+        APIs[API Gateway]
+        CDN[CloudFront]
+    end
+
+    subgraph Observe["Observability"]
+        CW[CloudWatch Metrics]
+        S3[S3 Artifacts]
+        Alarms[CloudWatch Alarms]
+        SNS[SNS Alerts]
+    end
+
+    US --> Web
+    EU --> Web
+    APAC --> Web
+    US --> API
+    EU --> API
+    Web --> App
+    Web --> CDN
+    API --> APIs
+    Flow --> App
+    Web --> CW
+    API --> CW
+    Web --> S3
+    CW --> Alarms
+    Alarms --> SNS
+```

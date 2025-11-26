@@ -1,4 +1,4 @@
-# Global Synthetic Monitoring
+# InfraTales | Global Synthetic Monitoring – 50+ Location Uptime & API Probes
 
 > **Global synthetic monitoring from 50+ locations with API testing, browser automation, uptime checks, performance baselines, and alerting**
 
@@ -382,3 +382,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
 <p align="center">
   Made with ❤️ by Rahul Ladumor
 </p>
+
+<div align="center">
+  <a href="https://infratales.com">Website</a> •
+  <a href="https://infratales.com/projects">Projects</a> •
+  <a href="https://infratales.com/premium">Premium</a> •
+  <a href="https://infratales.com/newsletter">Newsletter</a>
+</div>

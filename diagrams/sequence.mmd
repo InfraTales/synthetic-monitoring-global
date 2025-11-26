@@ -1,0 +1,20 @@
+```mermaid
+sequenceDiagram
+    participant Sched as Scheduler
+    participant Canary as Canary
+    participant Target as Target Endpoint
+    participant CW as CloudWatch
+    participant Alert as Alerting
+
+    Sched->>Canary: Trigger run
+    Canary->>Target: HTTP request
+    Target-->>Canary: Response
+    Canary->>Canary: Validate response
+    Canary->>CW: Publish metrics
+    Canary->>CW: Store artifacts
+    
+    alt Failure detected
+        CW->>Alert: Trigger alarm
+        Alert->>Alert: Send notification
+    end
+```

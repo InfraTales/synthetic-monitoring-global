@@ -1,0 +1,45 @@
+```mermaid
+graph LR
+    subgraph Schedule["Scheduling"]
+        Cron[Cron Schedule]
+        Rate[Rate Expression]
+    end
+
+    subgraph Execute["Execution"]
+        Lambda[Lambda Runtime]
+        Puppeteer[Puppeteer/Selenium]
+    end
+
+    subgraph Capture["Data Capture"]
+        Metrics[Response Metrics]
+        Screenshots[Screenshots]
+        HAR[HAR Files]
+        Logs[Execution Logs]
+    end
+
+    subgraph Store["Storage"]
+        CW[CloudWatch]
+        S3[S3 Bucket]
+    end
+
+    subgraph Alert["Alerting"]
+        Alarms[Alarms]
+        SNS[SNS Topics]
+        PagerDuty[PagerDuty]
+    end
+
+    Cron --> Lambda
+    Rate --> Lambda
+    Lambda --> Puppeteer
+    Puppeteer --> Metrics
+    Puppeteer --> Screenshots
+    Puppeteer --> HAR
+    Puppeteer --> Logs
+    Metrics --> CW
+    Screenshots --> S3
+    HAR --> S3
+    Logs --> CW
+    CW --> Alarms
+    Alarms --> SNS
+    SNS --> PagerDuty
+```
