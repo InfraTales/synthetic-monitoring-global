@@ -1,35 +1,70 @@
-# Runbook
+# Operations Runbook
 
-## Deployment
+## Overview
+This runbook provides operational procedures for managing and maintaining this infrastructure.
 
+## Prerequisites
+- AWS CLI configured
+- Terraform/CDK/Pulumi installed
+- Appropriate IAM permissions
+
+## Common Operations
+
+### Deployment
 ```bash
-npm install && cdk deploy --context environment=prod
+# Development
+./scripts/deploy.sh dev
+
+# Production
+./scripts/deploy.sh prod
 ```
 
-## Creating Canary
+### Monitoring
+- CloudWatch Dashboard: Check AWS Console
+- Alerts: Configured via SNS
+- Logs: CloudWatch Logs
 
-```javascript
-// canary.js
-const synthetics = require('Synthetics');
-const log = require('SyntheticsLogger');
+### Troubleshooting
 
-exports.handler = async () => {
-  const page = await synthetics.getPage();
-  await page.goto('https://example.com');
-  await page.waitForSelector('#main');
-  log.info('Page loaded successfully');
-};
+#### Issue: Deployment Fails
+**Symptoms**: Terraform/CDK apply fails
+**Resolution**:
+1. Check AWS credentials
+2. Verify IAM permissions
+3. Review error logs
+4. Check resource quotas
+
+#### Issue: High Costs
+**Symptoms**: Unexpected AWS charges
+**Resolution**:
+1. Review Cost Explorer
+2. Check for unused resources
+3. Verify auto-scaling policies
+4. Review instance types
+
+### Maintenance Windows
+- Preferred: Sunday 02:00-06:00 UTC
+- Avoid: Business hours (09:00-17:00 local time)
+
+### Escalation
+1. Team Lead
+2. DevOps Manager
+3. On-call Engineer
+
+## Emergency Procedures
+
+### Rollback
+```bash
+# Terraform
+terraform apply -var-file=previous.tfvars
+
+# CDK
+cdk deploy --previous-version
+
+# Pulumi
+pulumi stack select previous
+pulumi up
 ```
 
-## Multi-Location Setup
-
-1. Deploy canaries to multiple regions
-2. Configure CloudWatch cross-region dashboards
-3. Set up composite alarms
-4. Configure SNS for alerting
-
-## Monitoring
-
-- Check canary success rates hourly
-- Review latency trends daily
-- Investigate failures immediately
+### Disaster Recovery
+See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md)
